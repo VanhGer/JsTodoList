@@ -1,0 +1,114 @@
+:root {
+    --h1-color: white;
+    --header-color: rgba(53, 116, 2, 0.596);
+    --bgr-color: rgba(131, 161, 48, 0.685);
+    --btn-container: rgba(49, 53, 46, 0.596);
+    --default-transition: all 0.2s ease-in-out;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    top: 0;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background-color: var(--header-color);
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 40px;
+}
+
+footer {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    background-color: black;
+}
+
+h3 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20;
+    color: white;
+}
+
+.mainContent {
+    display: flex;
+    background-color: var(--bgr-color);
+    flex-wrap: nowrap;
+    height: 100%;
+    flex-grow: 1;
+}
+
+
+
+.btnContainer {
+    display: flex;
+    background-color: var(--btn-container);
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 16%;
+}
+
+.staticBtns {
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-grow: 1;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.dynamicBtns {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-grow: 25;
+    flex-direction: column;
+    top: 0;
+}
+
+.dyHeading {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    margin-top: -3%;
+}
+
+.addBtn {
+    border-radius: 49%;
+    border: 5px solid;
+    font-size: 28px;
+    padding: 0.5 rem;
+    text-align: center;
+
+}
+
+.static {
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+    background-color:inherit;
+    padding: 6px;
+    color: white;
+    width: 70%;
+    transform: scale(1);
+}
+
+.static:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+    background-color: var(--btn-container);
+    transition: var(--default-transition);
+    transform: scale(1.1);
+}
+
+
+
+
