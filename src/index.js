@@ -1,10 +1,12 @@
 import './style.css';
 import './tabs/tab.css';
+import './forms/form.css';
 import createStructure from './structure';
 import { createTabBtn, createTab, addOnClick} from "./static-btntab";
 import makeTodayTab from './tabs/today';
 import makeWeekTab from './tabs/week';
 import makeAllTab from './tabs/all';
+import setProjectForm from './forms/projectForm';
 
 createStructure();
 
@@ -25,3 +27,4 @@ content.appendChild(todayTab);
 content.appendChild(weekTab);
 content.appendChild(allTab);
 
+setProjectForm();

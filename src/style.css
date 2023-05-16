@@ -1,8 +1,8 @@
 :root {
     --h1-color: white;
-    --header-color: rgba(53, 116, 2, 0.596);
-    --bgr-color: rgba(131, 161, 48, 0.685);
-    --btn-container: rgba(49, 53, 46, 0.596);
+    --header-color: rgba(29, 34, 25, 0.596);
+    --bgr-color: rgba(233, 243, 205, 0.685);
+    --btn-container: rgba(250, 176, 115, 0.596);
     --default-transition: all 0.2s ease-in-out;
 }
 
@@ -19,11 +19,13 @@ header {
     flex-flow: column nowrap;
     align-items: center;
     background-color: var(--header-color);
+    max-height: 20vh;
 }
 
 h1 {
     font-family: 'Courier New', Courier, monospace;
     font-size: 40px;
+    color: white;
 }
 
 footer {
@@ -54,7 +56,7 @@ h3 {
     background-color: var(--btn-container);
     flex-wrap: nowrap;
     flex-direction: column;
-    width: 16%;
+    width: 150px;
 }
 
 .staticBtns {
@@ -68,7 +70,7 @@ h3 {
 
 .dynamicBtns {
     display:flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     flex-grow: 25;
     flex-direction: column;
@@ -78,16 +80,33 @@ h3 {
 .dyHeading {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 25px;
-    margin-top: -3%;
+    margin-top: -2%;
+}
+
+.inactive {
+    display: none;
 }
 
 .addBtn {
-    border-radius: 49%;
-    border: 5px solid;
-    font-size: 28px;
-    padding: 0.5 rem;
-    text-align: center;
+    border: none;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color:inherit;
+    padding: 6px;
+    color: black;
+    width: 70%;
+    transform: scale(1);
+    margin-top: -15%;
+    margin-bottom: 4px;
 
+}
+
+.addBtn:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+    background-color: var(--btn-container);
+    transition: var(--default-transition);
+    transform: scale(1.1);
 }
 
 .static {
@@ -96,7 +115,7 @@ h3 {
     border-radius: 10px;
     background-color:inherit;
     padding: 6px;
-    color: white;
+    color: black;
     width: 70%;
     transform: scale(1);
 }
@@ -108,7 +127,3 @@ h3 {
     transition: var(--default-transition);
     transform: scale(1.1);
 }
-
-
-
-

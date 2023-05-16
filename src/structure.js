@@ -27,8 +27,9 @@ function createStructure() {
     dynamicBtns.appendChild(heading);
     //create add button
     const addBtn = document.createElement('button');
-    addBtn.textContent = "+";
+    addBtn.textContent = "＋ Add project";
     addBtn.classList.add('addBtn');
+    addBtn.setAttribute('id', 'addBtn');
     dynamicBtns.appendChild(addBtn);
     btnContainer.appendChild(dynamicBtns); 
 
