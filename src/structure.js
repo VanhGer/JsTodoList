@@ -11,10 +11,16 @@ function createStructure() {
     const btnContainer = document.createElement('div');
     btnContainer.classList.add('btnContainer');
     btnContainer.setAttribute('id', 'btnContainer');
-    
+
     const staticBtns = document.createElement('div');
     staticBtns.classList.add('staticBtns');
     staticBtns.setAttribute('id', 'staticBtns');
+
+    const homeHeading = document.createElement('p');
+    homeHeading.textContent = "Home";
+    homeHeading.classList.add('staHeading');
+    staticBtns.appendChild(homeHeading);
+
     btnContainer.appendChild(staticBtns);
 
     const dynamicBtns = document.createElement('div');
@@ -24,13 +30,13 @@ function createStructure() {
     const heading = document.createElement('p');
     heading.textContent = "Projects";
     heading.classList.add('dyHeading');
-    dynamicBtns.appendChild(heading);
+    btnContainer.appendChild(heading);
     //create add button
     const addBtn = document.createElement('button');
     addBtn.textContent = "＋ Add project";
     addBtn.classList.add('addBtn');
     addBtn.setAttribute('id', 'addBtn');
-    dynamicBtns.appendChild(addBtn);
+    btnContainer.appendChild(addBtn);
     btnContainer.appendChild(dynamicBtns); 
 
     mn.appendChild(btnContainer);

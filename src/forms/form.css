@@ -45,6 +45,42 @@
     transition: var(--default-transition);
     transform: scale(1.1);
 }
+
+.projectTitle {
+    font-size: 17px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.dynamic {
+    display: flex;
+    border: black solid;
+    font-size: 18px;
+    border-radius: 3px;
+    background-color:inherit;
+    padding: 2px;
+    margin-bottom: 4px;
+    color: black;
+    width: 75%;
+    transform: scale(1);
+}
+
+.dynamic:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+    background-color: var(--btn-container);
+    transition: var(--default-transition);
+    transform: scale(1.1);
+}
+
+.closeBtn {
+    flex-grow: 0.2;
+    color:black;
+}
+
+.closeBtn:hover {
+    color: red;
+}
+
 input {
     width: 80%;
     height: 20px;

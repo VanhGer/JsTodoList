@@ -1,5 +1,6 @@
 import { Task, Project, ProjectList } from "./class";
 import list from "./formManagement";
+import { addOnClick, createTab } from "../static-btntab";
 
 function setActive(form, project) {
     return function active() {
@@ -13,9 +14,43 @@ function setActive(form, project) {
     }
 }
 
-function showProject() {
-    
+function showProjectList() {
+    const dynamicBtns = document.getElementById('dynamicBtns');
+
+    dynamicBtns.innerHTML = '';
+    for (let project of list.list) {
+        renderProject(project, dynamicBtns);
+    }
 }
+
+function renderProject(project, dynamicBtns) {
+    const newPrj = document.createElement('div');
+    newPrj.classList.add('dynamic');
+    
+    const close = document.createElement('div');
+    close.textContent = "☒";
+    close.classList.add('closeBtn');
+    newPrj.appendChild(close);
+
+    close.addEventListener('click', () => {
+        list.list.splice(list.indexOf(project), 1);
+        //setData();
+        showProjectList();
+    })
+
+    const title = document.createElement('div');
+    title.textContent = project.title;
+    title.classList.add('projectTitle');
+    newPrj.appendChild(title);
+    dynamicBtns.appendChild(newPrj);
+
+    // link to new Tab
+    const prjTab = createTab(project.title);
+    prjTab.classList.add('dynamicTab');
+    addOnClick(newPrj, prjTab);
+
+}
+
 
 function projectConfirmOnClick(form, project) {
     return function confirm() {
@@ -26,7 +61,7 @@ function projectConfirmOnClick(form, project) {
         list.addProject(newprj); 
         project.reset();
         //setData()
-        showProject();
+        showProjectList();
     }
 }
 
@@ -60,6 +95,7 @@ function setProjectForm() {
     const title = document.createElement('input');
     title.setAttribute('type', 'text');
     title.setAttribute('placeholder', 'Title');
+    title.setAttribute('maxlength', '15');
     title.id = 'title-input';
     projectForm.appendChild(title);
 

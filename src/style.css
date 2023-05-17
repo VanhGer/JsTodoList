@@ -56,7 +56,8 @@ h3 {
     background-color: var(--btn-container);
     flex-wrap: nowrap;
     flex-direction: column;
-    width: 150px;
+    align-items: center;
+    width: 230px;
 }
 
 .staticBtns {
@@ -65,7 +66,7 @@ h3 {
     align-items: center;
     flex-grow: 1;
     flex-direction: column;
-    margin-top: 8px;
+    width: 100%;
 }
 
 .dynamicBtns {
@@ -75,12 +76,20 @@ h3 {
     flex-grow: 25;
     flex-direction: column;
     top: 0;
+    width: 100%;
 }
 
 .dyHeading {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 25px;
-    margin-top: -2%;
+    margin-top: 2px;
+}
+
+.staHeading {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    margin-bottom: 2px;
+    margin-top: 1px;
 }
 
 .inactive {
@@ -91,12 +100,12 @@ h3 {
     border: none;
     font-size: 14px;
     border-radius: 10px;
-    background-color:inherit;
+    background-color: initial;
     padding: 6px;
     color: black;
     width: 70%;
     transform: scale(1);
-    margin-top: -15%;
+    margin-top: -13%;
     margin-bottom: 4px;
 
 }
@@ -110,13 +119,14 @@ h3 {
 }
 
 .static {
-    border: none;
+    border: black solid;
     font-size: 18px;
-    border-radius: 10px;
+    border-radius: 3px;
     background-color:inherit;
-    padding: 6px;
+    padding: 4px;
+    margin-top: 4px;
     color: black;
-    width: 70%;
+    width: 80%;
     transform: scale(1);
 }
 
