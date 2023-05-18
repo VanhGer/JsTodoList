@@ -1,11 +1,21 @@
 
 .newTab {
-    display:none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+.inactive {
+    display: none;
+}
+
 
 .active {
     display: flex;
 }
+
+
 
 .content {
     display: flex;
@@ -14,8 +24,12 @@
 
 .contentHeading {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-    
+    min-width: 100%;
+    font-size: 40px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 h2 {

@@ -1,15 +1,22 @@
 import { Task, Project, ProjectList } from "./class";
 import list from "./management";
 import { addOnClick, createTab } from "../static-btntab";
+import { addTaskBtnOnClick, setTaskForm} from "./task";
 
 //set active for form.
-function setActive(form, project) {
+function setActive(popUp, projectForm) {
     return function active() {
-        if (form.classList.contains('active') && project.classList.contains('active')) {
+        const taskForm = document.getElementById('taskForm');
+        if (taskForm) console.log('taskForm is alive');
+        if (taskForm.classList.contains('active')) {
+            taskForm.classList.remove('active');
+            console.log('taskForm is active');
+        }
+        if (popUp.classList.contains('active') && projectForm.classList.contains('active')) {
             return;
         }
-        if (! project.classList.contains('active')) project.classList.add('active');
-        if (! form.classList.contains('active')) form.classList.add('active');
+        if (! projectForm.classList.contains('active')) projectForm.classList.add('active');
+        if (! popUp.classList.contains('active')) popUp.classList.add('active');
     }
 }
 
@@ -62,6 +69,16 @@ function renderProject(project, dynamicBtns) {
     heading.classList.add('contentHeading');
     prjTab.appendChild(heading);
 
+    const addTaskBtn = document.createElement('button');
+    addTaskBtn.textContent = "＋ Add task";
+    addTaskBtn.classList.add('addTaskBtn');
+    
+    //addTaskBtnOnClick(addTaskBtn, project);
+
+    prjTab.appendChild(addTaskBtn);
+    
+
+ 
     const mainContent = document.createElement('div');
     mainContent.classList.add('projectContent');
     prjTab.appendChild(mainContent);
@@ -72,14 +89,19 @@ function renderProject(project, dynamicBtns) {
 }
 
 
-function projectConfirmOnClick(form, project) {
+function projectConfirmOnClick(popUp, projectForm) {
     return function confirm() {
-        project.classList.remove('active');
-        form.classList.remove('active');
         const title = document.getElementById('title-input').value;
+        if (title === '') {
+            alert("please enter the title");
+            return;
+        }
+
         const newprj = new Project(title);
+        popUp.classList.remove('active');
+        projectForm.classList.remove('active');
         list.addProject(newprj); 
-        project.reset();
+        projectForm.reset();
         //setData()
         showProjectList();
     }
@@ -90,17 +112,15 @@ function projectCancelOnClick(form, project) {
         project.classList.remove('active');
         form.classList.remove('active');
         project.reset();
-        showProject();
+        showProjectList();
     }
 }
 
 function setProjectForm() {
+    setTaskForm();
     const addBtn = document.getElementById('addBtn');
 
-    const popUp = document.createElement('div');
-    popUp.classList.add('popUp');
-    popUp.setAttribute('id', 'popUp');
-    popUp.classList.add('inactive');
+    const popUp = document.getElementById('popUp');
 
     const projectForm = document.createElement('form');
     projectForm.classList.add('projectForm');
@@ -117,7 +137,12 @@ function setProjectForm() {
     title.setAttribute('placeholder', 'Title');
     title.setAttribute('maxlength', '15');
     title.id = 'title-input';
+    title.required = true;
     projectForm.appendChild(title);
+
+
+    popUp.appendChild(projectForm);
+    document.body.appendChild(popUp);
 
     const btnContainer = document.createElement('div');
     btnContainer.classList.add('form-btn-container');
@@ -137,8 +162,6 @@ function setProjectForm() {
     cancelBtn.textContent = 'Cancel';
     btnContainer.appendChild(cancelBtn);
 
-    popUp.appendChild(projectForm);
-    document.body.appendChild(popUp);
 
     addBtn.addEventListener('click', setActive(popUp, projectForm));
 }

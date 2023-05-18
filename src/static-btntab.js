@@ -12,8 +12,7 @@ function createTabBtn(name, className) {
 function createTab(name) {
     const tmpTab = document.createElement('div');
     tmpTab.classList.add(name);
-    if (name === 'today')
-        tmpTab.setAttribute('id', 'todayTab');
+    tmpTab.classList.add('newTab');
     return tmpTab;
 }
 
