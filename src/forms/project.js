@@ -1,7 +1,8 @@
 import { Task, Project, ProjectList } from "./class";
-import list from "./formManagement";
+import list from "./management";
 import { addOnClick, createTab } from "../static-btntab";
 
+//set active for form.
 function setActive(form, project) {
     return function active() {
         if (form.classList.contains('active') && project.classList.contains('active')) {
@@ -9,11 +10,10 @@ function setActive(form, project) {
         }
         if (! project.classList.contains('active')) project.classList.add('active');
         if (! form.classList.contains('active')) form.classList.add('active');
-        console.log(form.classList);
-        console.log(project.classList);
     }
 }
 
+// show project list.
 function showProjectList() {
     const dynamicBtns = document.getElementById('dynamicBtns');
 
@@ -23,17 +23,27 @@ function showProjectList() {
     }
 }
 
+// render project
 function renderProject(project, dynamicBtns) {
+
+    const newPrjBtn = document.createElement('div');
+    newPrjBtn.classList.add('dynamicBtn');
+
     const newPrj = document.createElement('div');
     newPrj.classList.add('dynamic');
-    
+
     const close = document.createElement('div');
     close.textContent = "☒";
     close.classList.add('closeBtn');
-    newPrj.appendChild(close);
+    newPrjBtn.appendChild(close);
 
+
+    //close
     close.addEventListener('click', () => {
         list.list.splice(list.indexOf(project), 1);
+        const content = document.getElementById('content');
+        content.innerHTML = '';
+        console.log("cc");
         //setData();
         showProjectList();
     })
@@ -42,13 +52,23 @@ function renderProject(project, dynamicBtns) {
     title.textContent = project.title;
     title.classList.add('projectTitle');
     newPrj.appendChild(title);
-    dynamicBtns.appendChild(newPrj);
+    newPrjBtn.appendChild(newPrj)
+    dynamicBtns.appendChild(newPrjBtn);
 
     // link to new Tab
     const prjTab = createTab(project.title);
-    prjTab.classList.add('dynamicTab');
-    addOnClick(newPrj, prjTab);
+    const heading = document.createElement('p');
+    heading.textContent = project.title;
+    heading.classList.add('contentHeading');
+    prjTab.appendChild(heading);
 
+    const mainContent = document.createElement('div');
+    mainContent.classList.add('projectContent');
+    prjTab.appendChild(mainContent);
+
+
+    addOnClick(newPrj, prjTab, project);
+    
 }
 
 

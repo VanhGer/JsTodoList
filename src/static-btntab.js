@@ -1,3 +1,5 @@
+import { ta } from "date-fns/locale";
+
 function createTabBtn(name, className) {
     const staticBtns = document.getElementById('staticBtns');
     const newBtn = document.createElement('button');
@@ -9,23 +11,30 @@ function createTabBtn(name, className) {
 
 function createTab(name) {
     const tmpTab = document.createElement('div');
-    tmpTab.classList.add('newTab');
     tmpTab.classList.add(name);
+    if (name === 'today')
+        tmpTab.setAttribute('id', 'todayTab');
     return tmpTab;
 }
 
-function onClick(tab) {
-    return function switchTab () {
-        if (tab.classList.contains('active')) {
-            return;
-        }
-        document.querySelectorAll('.newTab').forEach((tab) => tab.classList.remove('active'));
-        tab.classList.add('active');
-    }
-}
 
-function addOnClick(btn, tab) {
-    btn.addEventListener('click', onClick(tab));
+function addOnClick(btn, tab, project = null) {
+    btn.addEventListener('click', () => {
+        const content = document.getElementById('content');
+        content.innerHTML = '';
+        content.appendChild(tab);
+        console.log("addon");
+        /**
+        if (tab.classList.contains('allTab')) 
+            displayAll();
+        else if (tab.classList.contains('weekTab'))
+            displayWeek();
+        else if (tab.classList.contains('todayTab'))
+            displayToday();
+        else 
+            displayTask(project);
+        */
+    });
 }
 
 export {createTabBtn, createTab, addOnClick};

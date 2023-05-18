@@ -44,7 +44,6 @@ function createStructure() {
     const content = document.createElement('div');
     content.classList.add('content');
     content.setAttribute('id', 'content');
-    //content.textContent = "content";
     mn.appendChild(content);
 
     const footer = document.createElement('footer');

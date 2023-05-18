@@ -1,5 +1,7 @@
 function makeWeekTab(curTab) {
     
+    curTab.setAttribute('id', 'weekTab');
+
     const content = document.createElement('div');
     content.classList.add('weekContent');
 
@@ -9,6 +11,9 @@ function makeWeekTab(curTab) {
 
     curTab.appendChild(heading);
     curTab.appendChild(content);
+
+    curTab.classList.remove('week');
+    curTab.classList.add('weekTab');
     return curTab;
 }
 

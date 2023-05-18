@@ -1,5 +1,8 @@
 function makeAllTab(curTab) {
 
+
+    curTab.setAttribute('id', 'allTab');
+
     const content = document.createElement('div');
     content.classList.add('allContent');
 
@@ -9,6 +12,10 @@ function makeAllTab(curTab) {
 
     curTab.appendChild(heading);
     curTab.appendChild(content);
+    
+    curTab.classList.remove('all');
+    curTab.classList.add('allTab');
+
     return curTab;
 }
 

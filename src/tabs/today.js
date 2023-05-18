@@ -1,5 +1,5 @@
 function makeTodayTab(curTab) {
-    curTab.classList.add('active');
+    
     const content = document.createElement('div');
     content.classList.add('todayContent');
 
@@ -9,6 +9,9 @@ function makeTodayTab(curTab) {
 
     curTab.appendChild(heading);
     curTab.appendChild(content);
+
+    curTab.classList.remove('today');
+    curTab.classList.add('todayTab');
     return curTab;
 }
 

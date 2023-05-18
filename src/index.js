@@ -6,7 +6,7 @@ import { createTabBtn, createTab, addOnClick} from "./static-btntab";
 import makeTodayTab from './tabs/today';
 import makeWeekTab from './tabs/week';
 import makeAllTab from './tabs/all';
-import setProjectForm from './forms/projectForm';
+import setProjectForm from './forms/project';
 
 createStructure();
 
@@ -24,7 +24,7 @@ addOnClick(weekBtn, weekTab);
 addOnClick(allBtn, allTab);
 
 content.appendChild(todayTab);
-content.appendChild(weekTab);
-content.appendChild(allTab);
+
 
 setProjectForm();
+
