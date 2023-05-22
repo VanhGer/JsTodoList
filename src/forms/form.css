@@ -21,7 +21,6 @@
 }
 
 .taskForm {
-    display:flex;
     align-items: center;
     flex-direction: column;
     background-color: rgb(205, 231, 200);
@@ -86,11 +85,11 @@
     border: black 2px solid;
     font-size: 14px;
     border-radius: 5px;
+    width: 30%;
     background-color: rgba(20, 95, 20, 0.466);
     color: black;
     transform: scale(1);
     margin-left: 20px;
-    margin-top: -5%;
 
 }
 
@@ -101,7 +100,12 @@
     transform: scale(1.1);
 }
 
-
+.projectContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 input {
     width: 80%;
@@ -114,3 +118,9 @@ input {
 
 
 
+.taskDisplay {
+    background-color: rgba(175, 123, 56, 0.774);
+    width: 80%;
+    border: 2px black solid;
+    border-radius: 5px;
+}

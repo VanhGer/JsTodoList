@@ -41,6 +41,10 @@ h3 {
     color: white;
 }
 
+.content {
+    width: 100%;
+}
+
 .mainContent {
     display: flex;
     background-color: var(--bgr-color);

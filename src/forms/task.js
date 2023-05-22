@@ -4,43 +4,61 @@ import list from "./management";
 import '../tabs/tab.css';
 
 
-function displayTask(project, tab) {
-    const mainContent = tab.getElementById('projectContent');
-}
-
-function addTaskBtnOnClick(addTaskBtn, project) {
+function addTaskBtnOnClick(addTaskBtn, tab,  project) {
     addTaskBtn.addEventListener('click', () => {
-        const popUp = document.getElementById('popUp');
-        const taskForm = document.getElementById('taskForm');
-        const projectForm = document.getElementById('projectForm');
-        if (projectForm.classList.contains('active')) {
-            projectForm.classList.remove('active');
-        }
-        if (popUp.classList.contains('active') && taskForm.classList.contains('active')) {
-            return;
-        }
+        const taskForm = createTaskForm(project, tab);
+        const taskPopUp = document.getElementById('taskPopUp');
+        taskPopUp.innerHTML = '';
+        taskPopUp.appendChild(taskForm);
+        if (! taskPopUp.classList.contains('active')) taskPopUp.classList.add('active');
         if (! taskForm.classList.contains('active')) taskForm.classList.add('active');
-        if (! popUp.classList.contains('active')) popUp.classList.add('active');
     })
 }
 
-function createConfirmEvent(project) {
-    const confirmBtn = document.getElementById('task-confirmBtn');
-    confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+function displayTask(task) {  
+    const newTask = document.createElement('div');
+    newTask.classList.add('taskDisplay');
 
-    confirmBtn.addEventListener('click', taskConfirmOnClick(popUp, taskForm, project));
-} 
+    const head = document.createElement('p');
+    head.classList.add('taskHeader');
+    head.textContent = task.title;
 
-function taskConfirmOnClick(popUp, taskForm, project) {
+    const des = document.createElement('p');
+    des.classList.add('taskDes');
+    des.textContent = task.description;
+
+    const date = document.createElement('p');
+    date.classList.add('taskDate');
+    date.textContent = task.date;
+
+    const content = document.createElement('div');
+    content.classList.add('taskContent');
+    content.appendChild(head);
+    content.appendChild(des);
+    newTask.appendChild(content);
+    newTask.appendChild(date);
+
+    return newTask;
+}
+
+function renderTask(task, mainContent) {
+    const curTask = displayTask(task);
+    mainContent.appendChild(curTask);
+}
+
+function showProject(tab, project) {  
+    const mainContent = document.getElementById('projectContent');
+    mainContent.innerHTML = '';
+    for (let task of project.tasks) {
+        renderTask(task, mainContent);
+    }
+}
+
+function taskConfirmOnClick(taskForm, tab, project) {
     return function confirm() {
-        const title = document.getElementById('title-input').value;
-        const description = document.getElementById('title-input').value;
-        const date = document.getElementById('date-input').value;
-        
-        //check
-        console.log(project.title);
-        console.log(date);
-
+        const title = document.getElementById('task-title-input').value;
+        const description = document.getElementById('task-description-input').value;
+        const date = document.getElementById('task-date-input').value;
 
         if (title === '') {
             alert("please enter the title");
@@ -53,38 +71,33 @@ function taskConfirmOnClick(popUp, taskForm, project) {
         }
 
         const newTask = new Task(title, description, date);
+        const taskPopUp = document.getElementById('taskPopUp');
         taskForm.classList.remove('active');
-        popUp.classList.remove('active');
+        taskPopUp.remove('active');
         project.addTask(newTask);
-        taskFormt.reset();
+        taskForm.reset();
         //setData()
-        //showProject();
+        showProject(tab, project);
     }
 }
 
 
 
-function taskCancelOnClick(popUp, taskForm) {
+function taskCancelOnClick(taskForm) {
     return function confirm() {
-        popUp.classList.remove('active');
         taskForm.classList.remove('active');
         taskForm.reset();
+        const taskPopUp = document.getElementById('taskPopUp');
+        taskPopUp.remove('active');
         //showProject();
     }
 }
 
-function setTaskForm() {
-
-    const popUp = document.createElement('div');
-    popUp.classList.add('popUp');
-    popUp.setAttribute('id', 'popUp');
-    popUp.classList.add('inactive');
-
+function createTaskForm(project, tab) {
 
     const taskForm = document.createElement('form');
     taskForm.classList.add('taskForm');
     taskForm.classList.add('inactive');
-    console.log(taskForm.style.display); 
     taskForm.setAttribute('id', 'taskForm');
     
     //set attribute for form
@@ -97,19 +110,19 @@ function setTaskForm() {
     title.setAttribute('type', 'text');
     title.setAttribute('placeholder', 'Title');
     title.setAttribute('maxlength', '20');
-    title.id = 'title-input';
+    title.id = 'task-title-input';
     taskForm.appendChild(title);
 
     const description = document.createElement('input');
     description.setAttribute('type', 'text');
     description.setAttribute('placeholder', 'Description (Optional)');
     description.setAttribute('maxlength', '50');
-    description.id = 'description-input';
+    description.id = 'task-description-input';
     taskForm.appendChild(description);
 
     const date = document.createElement('input');
     date.setAttribute('type', 'date');
-    date.id = 'date-input';
+    date.id = 'task-date-input';
     taskForm.appendChild(date);
 
     //set button
@@ -121,19 +134,18 @@ function setTaskForm() {
     confirmBtn.classList.add('form-confirm-btn');
     confirmBtn.setAttribute('type', 'button');
     confirmBtn.id = "task-confirmBtn";
-    //confirmBtn.addEventListener('click', taskConfirmOnClick(popUp, taskForm));
+    confirmBtn.addEventListener('click', taskConfirmOnClick(taskForm, tab, project));
     confirmBtn.textContent = 'Confirm';
     btnContainer.appendChild(confirmBtn);
 
     const cancelBtn = document.createElement('button');
     cancelBtn.classList.add('form-cancel-btn');
     cancelBtn.setAttribute('type', 'button');
-    cancelBtn.addEventListener('click', taskCancelOnClick(popUp, taskForm));
+    cancelBtn.addEventListener('click', taskCancelOnClick(taskForm));
     cancelBtn.textContent = 'Cancel';
     btnContainer.appendChild(cancelBtn);
 
-    popUp.appendChild(taskForm);
-    document.body.appendChild(popUp);
+    return taskForm;
 }
 
-export {setTaskForm, addTaskBtnOnClick};
+export {addTaskBtnOnClick};

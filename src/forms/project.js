@@ -1,17 +1,11 @@
 import { Task, Project, ProjectList } from "./class";
 import list from "./management";
 import { addOnClick, createTab } from "../static-btntab";
-import { addTaskBtnOnClick, setTaskForm} from "./task";
+import { addTaskBtnOnClick} from "./task";
 
 //set active for form.
 function setActive(popUp, projectForm) {
     return function active() {
-        const taskForm = document.getElementById('taskForm');
-        if (taskForm) console.log('taskForm is alive');
-        if (taskForm.classList.contains('active')) {
-            taskForm.classList.remove('active');
-            console.log('taskForm is active');
-        }
         if (popUp.classList.contains('active') && projectForm.classList.contains('active')) {
             return;
         }
@@ -69,29 +63,25 @@ function renderProject(project, dynamicBtns) {
     heading.classList.add('contentHeading');
     prjTab.appendChild(heading);
 
+    const mainContent = document.createElement('div');
+    mainContent.classList.add('projectContent');
+    mainContent.setAttribute('id', 'projectContent')
+    prjTab.appendChild(mainContent);
+
+    addOnClick(newPrj, prjTab, project);
+
     const addTaskBtn = document.createElement('button');
     addTaskBtn.textContent = "＋ Add task";
     addTaskBtn.classList.add('addTaskBtn');
-    
-    //addTaskBtnOnClick(addTaskBtn, project);
-
     prjTab.appendChild(addTaskBtn);
-    
-
- 
-    const mainContent = document.createElement('div');
-    mainContent.classList.add('projectContent');
-    prjTab.appendChild(mainContent);
-
-
-    addOnClick(newPrj, prjTab, project);
+    addTaskBtnOnClick(addTaskBtn, prjTab, project);
     
 }
 
 
 function projectConfirmOnClick(popUp, projectForm) {
     return function confirm() {
-        const title = document.getElementById('title-input').value;
+        const title = document.getElementById('project-title-input').value;
         if (title === '') {
             alert("please enter the title");
             return;
@@ -117,10 +107,19 @@ function projectCancelOnClick(form, project) {
 }
 
 function setProjectForm() {
-    setTaskForm();
+    //setTaskForm();
     const addBtn = document.getElementById('addBtn');
 
-    const popUp = document.getElementById('popUp');
+    const taskPopUp = document.createElement('div');
+    taskPopUp.classList.add('popUp');
+    taskPopUp.setAttribute('id', 'taskPopUp');
+    taskPopUp.classList.add('inactive');
+
+    const popUp = document.createElement('div');
+    popUp.classList.add('popUp');
+    popUp.setAttribute('id', 'popUp');
+    popUp.classList.add('inactive');
+
 
     const projectForm = document.createElement('form');
     projectForm.classList.add('projectForm');
@@ -136,13 +135,14 @@ function setProjectForm() {
     title.setAttribute('type', 'text');
     title.setAttribute('placeholder', 'Title');
     title.setAttribute('maxlength', '15');
-    title.id = 'title-input';
+    title.id = 'project-title-input';
     title.required = true;
     projectForm.appendChild(title);
 
 
     popUp.appendChild(projectForm);
     document.body.appendChild(popUp);
+    document.body.appendChild(taskPopUp);
 
     const btnContainer = document.createElement('div');
     btnContainer.classList.add('form-btn-container');
