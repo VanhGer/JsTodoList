@@ -12,6 +12,10 @@ class Project {
         this.title = title;
     }
 
+    getTitle() {
+        return this.title;
+    }
+
     addTask(newTask) {
         if (!this.isAlreadyIn(newTask))  this.tasks.push(newTask);
         else alert("This task is already in your project.")
@@ -37,6 +41,12 @@ class Project {
 
     copy(prj) {
         this.tasks = prj.tasks;
+    }
+
+    sort() {
+        this.tasks.sort(function(a, b) {
+            return a > b;
+        })
     }
 }
 

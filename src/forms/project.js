@@ -14,12 +14,21 @@ function setActive(popUp, projectForm) {
     }
 }
 
+function staticPrj(project) {
+    if (project.title === 'Today') return true;
+    if (project.title === 'Week') return true;
+    if (project.title === 'All') return true;
+    return false;
+}
 // show project list.
 function showProjectList() {
     const dynamicBtns = document.getElementById('dynamicBtns');
 
     dynamicBtns.innerHTML = '';
     for (let project of list.list) {
+        if (staticPrj(project)) {
+            continue;
+        }
         renderProject(project, dynamicBtns);
     }
 }
@@ -74,7 +83,7 @@ function renderProject(project, dynamicBtns) {
     addTaskBtn.textContent = "＋ Add task";
     addTaskBtn.classList.add('addTaskBtn');
     prjTab.appendChild(addTaskBtn);
-    addTaskBtnOnClick(addTaskBtn, prjTab, project);
+    addTaskBtnOnClick(addTaskBtn, project);
     
 }
 

@@ -2,11 +2,13 @@ import { de } from "date-fns/locale";
 import { Task, Project, ProjectList } from "./class";
 import list from "./management";
 import '../tabs/tab.css';
+import { parseJSON } from "date-fns";
 
 
-function addTaskBtnOnClick(addTaskBtn, tab,  project) {
+function addTaskBtnOnClick(addTaskBtn,  project) {
     addTaskBtn.addEventListener('click', () => {
-        const taskForm = createTaskForm(project, tab);
+        console.log('vg');
+        const taskForm = createTaskForm(project);
         const taskPopUp = document.getElementById('taskPopUp');
         taskPopUp.innerHTML = '';
         taskPopUp.appendChild(taskForm);
@@ -15,9 +17,54 @@ function addTaskBtnOnClick(addTaskBtn, tab,  project) {
     })
 }
 
-function displayTask(task) {  
+function addStaticTask(task) {
+    const allPrj = list.getProject('All');
+    const weekPrj = list.getProject('Week');
+    const todayPrj = list.getProject('Today');
+    if (allPrj) console.log(allPrj.title);
+    else console.log('deo ok');
+    if (task) console.log(task);
+    else console.log('task deo ok');
+    //allPrj.addTask(task);
+
+    // const itemDate = new Date(task.date);
+    // itemDate.setHours(0, 0, 0, 0);
+    // const date = new Date();
+    // date.setHours(0, 0, 0, 0);
+    // if (itemDate.getTime() === date.getTime()) {
+    //   todayPrj.addItem(item);
+    // }
+
+    // const nextWeek = add(date, { days: 7 });
+    // const lastWeek = add(date, { days: -7 });
+    // if (lastWeek < itemDate && itemDate < nextWeek) {
+    //   weekPrj.addItem(item);
+    // }
+}
+
+function staticPrj(project) {
+    if (project.title === 'Today') return true;
+    if (project.title === 'Week') return true;
+    if (project.title === 'All') return true;
+    return false;
+}
+
+function displayTask(task, project) {  
     const newTask = document.createElement('div');
     newTask.classList.add('taskDisplay');
+
+    const close = document.createElement('div');
+    if (staticPrj(project) == false) {
+
+        close.textContent = "☒";
+        close.classList.add('closeBtn');
+
+        close.addEventListener('click', () => {
+            project.tasks.splice(project.indexOf(task), 1);
+            //setData();
+            showProject(project);
+        })
+    }
 
     const head = document.createElement('p');
     head.classList.add('taskHeader');
@@ -37,24 +84,25 @@ function displayTask(task) {
     content.appendChild(des);
     newTask.appendChild(content);
     newTask.appendChild(date);
+    if (staticPrj(project) == false) {newTask.appendChild(close);}
 
     return newTask;
 }
 
-function renderTask(task, mainContent) {
-    const curTask = displayTask(task);
+function renderTask(task, mainContent, project) {
+    const curTask = displayTask(task, project);
     mainContent.appendChild(curTask);
 }
 
-function showProject(tab, project) {  
+function showProject(project) {  
     const mainContent = document.getElementById('projectContent');
     mainContent.innerHTML = '';
     for (let task of project.tasks) {
-        renderTask(task, mainContent);
+        renderTask(task, mainContent, project);
     }
 }
 
-function taskConfirmOnClick(taskForm, tab, project) {
+function taskConfirmOnClick(taskForm, project) {
     return function confirm() {
         const title = document.getElementById('task-title-input').value;
         const description = document.getElementById('task-description-input').value;
@@ -73,11 +121,13 @@ function taskConfirmOnClick(taskForm, tab, project) {
         const newTask = new Task(title, description, date);
         const taskPopUp = document.getElementById('taskPopUp');
         taskForm.classList.remove('active');
-        taskPopUp.remove('active');
+        taskPopUp.classList.remove('active');
+        taskPopUp.innerHTML = '';
         project.addTask(newTask);
+        addStaticTask(newTask);
         taskForm.reset();
         //setData()
-        showProject(tab, project);
+        showProject(project);
     }
 }
 
@@ -88,12 +138,13 @@ function taskCancelOnClick(taskForm) {
         taskForm.classList.remove('active');
         taskForm.reset();
         const taskPopUp = document.getElementById('taskPopUp');
-        taskPopUp.remove('active');
+        taskPopUp.classList.remove('active');
+        taskPopUp.innerHTML = '';
         //showProject();
     }
 }
 
-function createTaskForm(project, tab) {
+function createTaskForm(project) {
 
     const taskForm = document.createElement('form');
     taskForm.classList.add('taskForm');
@@ -134,7 +185,7 @@ function createTaskForm(project, tab) {
     confirmBtn.classList.add('form-confirm-btn');
     confirmBtn.setAttribute('type', 'button');
     confirmBtn.id = "task-confirmBtn";
-    confirmBtn.addEventListener('click', taskConfirmOnClick(taskForm, tab, project));
+    confirmBtn.addEventListener('click', taskConfirmOnClick(taskForm, project));
     confirmBtn.textContent = 'Confirm';
     btnContainer.appendChild(confirmBtn);
 
@@ -148,4 +199,4 @@ function createTaskForm(project, tab) {
     return taskForm;
 }
 
-export {addTaskBtnOnClick};
+export {addTaskBtnOnClick, showProject};

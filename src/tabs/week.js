@@ -3,7 +3,8 @@ function makeWeekTab(curTab) {
     curTab.setAttribute('id', 'weekTab');
 
     const content = document.createElement('div');
-    content.classList.add('weekContent');
+    content.classList.add('projectContent');
+    content.setAttribute('id', 'projectContent');
 
     const heading = document.createElement('p');
     heading.textContent = "This week";

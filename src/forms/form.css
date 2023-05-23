@@ -85,11 +85,12 @@
     border: black 2px solid;
     font-size: 14px;
     border-radius: 5px;
-    width: 30%;
+    width: 100px;
     background-color: rgba(20, 95, 20, 0.466);
     color: black;
     transform: scale(1);
     margin-left: 20px;
+    margin-top: 5px;
 
 }
 
@@ -119,8 +120,29 @@ input {
 
 
 .taskDisplay {
+    display: flex;
     background-color: rgba(175, 123, 56, 0.774);
     width: 80%;
     border: 2px black solid;
     border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.taskContent {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 4;
+    gap: 2px;
+}
+
+.taskHeader{
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+.taskDes{
+    font-size: 15px;
+    margin-top: -23px;
+    margin-bottom: 0%;
 }

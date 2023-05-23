@@ -1,8 +1,9 @@
 function makeTodayTab(curTab) {
     
     const content = document.createElement('div');
-    content.classList.add('todayContent');
-
+    content.classList.add('projectContent');
+    content.setAttribute('id', 'projectContent');
+    
     const heading = document.createElement('p');
     heading.textContent = "Today";
     heading.classList.add('contentHeading');

@@ -1,4 +1,5 @@
 import { ta } from "date-fns/locale";
+import { showProject } from "./forms/task";
 
 function createTabBtn(name, className) {
     const staticBtns = document.getElementById('staticBtns');
@@ -17,22 +18,13 @@ function createTab(name) {
 }
 
 
-function addOnClick(btn, tab, project = null) {
+function addOnClick(btn, tab, project) {
     btn.addEventListener('click', () => {
         const content = document.getElementById('content');
         content.innerHTML = '';
         content.appendChild(tab);
-        console.log("addon");
-        /**
-        if (tab.classList.contains('allTab')) 
-            displayAll();
-        else if (tab.classList.contains('weekTab'))
-            displayWeek();
-        else if (tab.classList.contains('todayTab'))
-            displayToday();
-        else 
-            displayTask(project);
-        */
+
+        showProject(project);
     });
 }
 
