@@ -1,13 +1,12 @@
 import { de } from "date-fns/locale";
 import { Task, Project, ProjectList } from "./class";
-import list from "./management";
+import {list, setData} from "./management";
 import '../tabs/tab.css';
 import { parseJSON } from "date-fns";
-
+import add from 'date-fns/add';
 
 function addTaskBtnOnClick(addTaskBtn,  project) {
     addTaskBtn.addEventListener('click', () => {
-        console.log('vg');
         const taskForm = createTaskForm(project);
         const taskPopUp = document.getElementById('taskPopUp');
         taskPopUp.innerHTML = '';
@@ -18,28 +17,44 @@ function addTaskBtnOnClick(addTaskBtn,  project) {
 }
 
 function addStaticTask(task) {
-    const allPrj = list.getProject('All');
-    const weekPrj = list.getProject('Week');
-    const todayPrj = list.getProject('Today');
-    if (allPrj) console.log(allPrj.title);
-    else console.log('deo ok');
-    if (task) console.log(task);
-    else console.log('task deo ok');
-    //allPrj.addTask(task);
+    const allPrj = list.getProject('All')[0];
+    const weekPrj = list.getProject('Week')[0];
+    const todayPrj = list.getProject('Today')[0];
+    if (allPrj) {
+        for (let taskk of allPrj.tasks) {
+            console.log(taskk);
+        }
+    }
+    else console.log('cc');
+    allPrj.addTask(task);
+    console.log('ok');
 
-    // const itemDate = new Date(task.date);
-    // itemDate.setHours(0, 0, 0, 0);
-    // const date = new Date();
-    // date.setHours(0, 0, 0, 0);
-    // if (itemDate.getTime() === date.getTime()) {
-    //   todayPrj.addItem(item);
-    // }
+    const itemDate = new Date(task.date);
+    itemDate.setHours(0, 0, 0, 0);
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    if (itemDate.getTime() === date.getTime()) {
+      todayPrj.addTask(task);
+    }
 
-    // const nextWeek = add(date, { days: 7 });
-    // const lastWeek = add(date, { days: -7 });
-    // if (lastWeek < itemDate && itemDate < nextWeek) {
-    //   weekPrj.addItem(item);
-    // }
+    const nextWeek = add(date, { days: 7 });
+    const lastWeek = add(date, { days: -7 });
+    if (lastWeek < itemDate && itemDate < nextWeek) {
+      weekPrj.addTask(task);
+    } 
+    setData();
+}
+
+function removeStaticTask(task) {
+    const allPrj = list.getProject('All')[0];
+    const weekPrj = list.getProject('Week')[0];
+    const todayPrj = list.getProject('Today')[0];
+
+
+    allPrj.tasks.splice(allPrj.indexOf(task), 1);
+    weekPrj.tasks.splice(weekPrj.indexOf(task), 1);
+    todayPrj.tasks.splice(todayPrj.indexOf(task), 1);
+
 }
 
 function staticPrj(project) {
@@ -61,7 +76,8 @@ function displayTask(task, project) {
 
         close.addEventListener('click', () => {
             project.tasks.splice(project.indexOf(task), 1);
-            //setData();
+            removeStaticTask(task);
+            setData();
             showProject(project);
         })
     }
@@ -126,7 +142,7 @@ function taskConfirmOnClick(taskForm, project) {
         project.addTask(newTask);
         addStaticTask(newTask);
         taskForm.reset();
-        //setData()
+        setData()
         showProject(project);
     }
 }

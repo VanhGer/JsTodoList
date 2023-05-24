@@ -1,5 +1,18 @@
 import { Task, Project, ProjectList } from "./class";
+import { showProjectList } from "./project";
 
-const list = new ProjectList();
+function setData(list) {  
+    localStorage.clear();
+    localStorage.setItem('myList', JSON.stringify(list));
+}
 
-export default list;
+function restore() {
+    if (!localStorage.myList) {
+        return new ProjectList();
+    } else {
+        let obj = JSON.parse(localStorage.getItem('myList'));
+        return obj;
+    }
+}
+
+export { setData, restore};

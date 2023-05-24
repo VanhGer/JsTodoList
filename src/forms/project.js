@@ -1,8 +1,7 @@
 import { Task, Project, ProjectList } from "./class";
-import list from "./management";
+import {restore, setData}  from "./management";
 import { addOnClick, createTab } from "../static-btntab";
 import { addTaskBtnOnClick} from "./task";
-
 //set active for form.
 function setActive(popUp, projectForm) {
     return function active() {
@@ -22,6 +21,8 @@ function staticPrj(project) {
 }
 // show project list.
 function showProjectList() {
+
+    const list = restore();
     const dynamicBtns = document.getElementById('dynamicBtns');
 
     dynamicBtns.innerHTML = '';
@@ -54,7 +55,7 @@ function renderProject(project, dynamicBtns) {
         const content = document.getElementById('content');
         content.innerHTML = '';
         console.log("cc");
-        //setData();
+        setData();
         showProjectList();
     })
 
@@ -88,7 +89,7 @@ function renderProject(project, dynamicBtns) {
 }
 
 
-function projectConfirmOnClick(popUp, projectForm) {
+function projectConfirmOnClick(popUp, projectForm, list) {
     return function confirm() {
         const title = document.getElementById('project-title-input').value;
         if (title === '') {
@@ -101,7 +102,7 @@ function projectConfirmOnClick(popUp, projectForm) {
         projectForm.classList.remove('active');
         list.addProject(newprj); 
         projectForm.reset();
-        //setData()
+        setData()
         showProjectList();
     }
 }
@@ -115,8 +116,7 @@ function projectCancelOnClick(form, project) {
     }
 }
 
-function setProjectForm() {
-    //setTaskForm();
+function setProjectForm(list) {
     const addBtn = document.getElementById('addBtn');
 
     const taskPopUp = document.createElement('div');
@@ -160,7 +160,7 @@ function setProjectForm() {
     const confirmBtn = document.createElement('button');
     confirmBtn.classList.add('form-confirm-btn');
     confirmBtn.setAttribute('type', 'button');
-    confirmBtn.addEventListener('click', projectConfirmOnClick(popUp, projectForm));
+    confirmBtn.addEventListener('click', projectConfirmOnClick(popUp, projectForm, list));
     confirmBtn.textContent = 'Confirm';
     btnContainer.appendChild(confirmBtn);
 
@@ -175,4 +175,4 @@ function setProjectForm() {
     addBtn.addEventListener('click', setActive(popUp, projectForm));
 }
 
-export default setProjectForm;
+export {setProjectForm, showProjectList};

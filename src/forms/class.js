@@ -17,7 +17,10 @@ class Project {
     }
 
     addTask(newTask) {
-        if (!this.isAlreadyIn(newTask))  this.tasks.push(newTask);
+        if (!this.isAlreadyIn(newTask))  {
+            this.tasks.push(newTask);
+            this.sortByDate();
+        } 
         else alert("This task is already in your project.")
     }
 
@@ -43,9 +46,9 @@ class Project {
         this.tasks = prj.tasks;
     }
 
-    sort() {
+    sortByDate() {
         this.tasks.sort(function(a, b) {
-            return a > b;
+            return new Date(a.date) - new Date(b.date);
         })
     }
 }
@@ -53,6 +56,12 @@ class Project {
 class ProjectList {
     constructor() {
         this.list = [];
+    }
+
+    static createNew(newList) {
+        const obj = new ProjectList();
+        obj.list - newList.list;
+        return obj;
     }
     addProject(newProject) {
         if (!this.isAlreadyIn(newProject))  this.list.push(newProject);
