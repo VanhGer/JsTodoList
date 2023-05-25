@@ -1,7 +1,7 @@
 function createStructure() {
     const header = document.createElement('header');
     const title  = document.createElement('h1');
-    title.textContent = "Todo List";
+    title.textContent = "📝Todo List";
     header.appendChild(title);
 
     const mn = document.createElement('div');

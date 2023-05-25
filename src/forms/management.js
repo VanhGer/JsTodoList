@@ -1,18 +1,23 @@
 import { Task, Project, ProjectList } from "./class";
 import { showProjectList } from "./project";
 
-function setData(list) {  
-    localStorage.clear();
+let list = new ProjectList();
+function setData() {  
+    localStorage.removeItem('myList');
     localStorage.setItem('myList', JSON.stringify(list));
-}
+} 
 
 function restore() {
     if (!localStorage.myList) {
-        return new ProjectList();
+        showProjectList();
     } else {
         let obj = JSON.parse(localStorage.getItem('myList'));
-        return obj;
-    }
+        obj.list = obj.list.map((item) => {
+            return Project.createNew(item);
+        });
+        list = ProjectList.createNew(obj);
+        showProjectList();
+    } 
 }
 
-export { setData, restore};
+export {list, setData, restore};

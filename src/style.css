@@ -1,8 +1,8 @@
 :root {
-    --h1-color: white;
-    --header-color: rgba(29, 34, 25, 0.596);
-    --bgr-color: rgba(233, 243, 205, 0.685);
-    --btn-container: rgba(250, 176, 115, 0.596);
+    --h1-color: rgb(180, 68, 68);
+    --header-color: rgba(31, 34, 28, 0.788);
+    --bgr-color: rgba(233, 243, 205, 0.836);
+    --btn-container: rgba(231, 133, 52, 0.568);
     --default-transition: all 0.2s ease-in-out;
 }
 

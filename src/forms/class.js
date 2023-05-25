@@ -12,6 +12,13 @@ class Project {
         this.title = title;
     }
 
+    static createNew(newProject) {
+        const obj = new Project();
+        obj.tasks = newProject.tasks;
+        obj.title = newProject.title;
+        return obj;
+    }
+
     getTitle() {
         return this.title;
     }
@@ -54,13 +61,14 @@ class Project {
 }
 
 class ProjectList {
+    
     constructor() {
         this.list = [];
     }
 
     static createNew(newList) {
         const obj = new ProjectList();
-        obj.list - newList.list;
+        obj.list = newList.list;
         return obj;
     }
     addProject(newProject) {

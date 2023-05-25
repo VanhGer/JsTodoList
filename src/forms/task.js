@@ -25,7 +25,7 @@ function addStaticTask(task) {
             console.log(taskk);
         }
     }
-    else console.log('cc');
+    else console.log('ccccc');
     allPrj.addTask(task);
     console.log('ok');
 
@@ -215,4 +215,4 @@ function createTaskForm(project) {
     return taskForm;
 }
 
-export {addTaskBtnOnClick, showProject};
+export {addTaskBtnOnClick, showProject, removeStaticTask};
